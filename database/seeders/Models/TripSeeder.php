@@ -24,6 +24,6 @@ class TripSeeder extends Seeder
             ->sequence(fn() => [
                 'vehicle_id' => Vehicle::all()->random(),
             ])
-            ->count(20)->create();
+            ->count(200)->create();
     }
 }

@@ -19,6 +19,11 @@ $panel_enums = array_unique($panel_enums);
     license: new OAT\License(name: "MIT License", url: "https://opensource.org/license/mit",),
 )]
 
+#[OAT\Server(
+    url: BASE_URL . "/api/",
+    description: "API Server"
+)]
+
 #[OAT\SecurityScheme(
     securityScheme: "bearerAuth",
     type: "http",

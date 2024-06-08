@@ -13,23 +13,90 @@
         },
         "version": "0.1"
     },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000/api/",
+            "description": "API Server"
+        }
+    ],
     "paths": {
-        "/v1/showcase/vehicles/": {
+        "/v1/tokens/create": {
+            "post": {
+                "tags": [
+                    "Пользователи"
+                ],
+                "summary": "Аутентификация в системе",
+                "operationId": "ac3299398ef8862d98158dd4d626e9d2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "Email",
+                                        "type": "string",
+                                        "example": "test@example.com"
+                                    },
+                                    "password": {
+                                        "description": "Пароль",
+                                        "type": "string",
+                                        "example": "123456789"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успешная операция",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/showcase/available_vehicles/": {
             "get": {
                 "tags": [
                     "Автомобили"
                 ],
                 "summary": "Получение доступных автомобилей",
-                "operationId": "624c0b79ea6693d8f7e10032ce7dc161",
+                "operationId": "02098914d52f72728421e8a9dc881d29",
                 "parameters": [
                     {
                         "name": "date_start",
                         "in": "query",
-                        "description": "Дата начала аренды",
-                        "required": true,
+                        "description": "Планируемая дата начала аренды",
+                        "required": false,
                         "schema": {
                             "type": "date",
                             "format": "date",
+                            "example": "2022-04-03 09:47"
+                        }
+                    },
+                    {
+                        "name": "model",
+                        "in": "query",
+                        "description": "Модель автомобиля",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": ""
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "Категория комфорта автомобиля",
+                        "required": false,
+                        "schema": {
+                            "type": "int",
                             "example": ""
                         }
                     }

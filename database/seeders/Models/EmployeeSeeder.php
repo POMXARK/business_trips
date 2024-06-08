@@ -25,6 +25,6 @@ class EmployeeSeeder extends Seeder
                 'user_id' => User::all()->random(),
                 'staff_position_id' => StaffPosition::all()->random(),
             ])
-            ->count(20)->create();
+            ->count(200)->create();
     }
 }

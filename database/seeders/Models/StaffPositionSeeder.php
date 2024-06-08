@@ -19,6 +19,6 @@ class StaffPositionSeeder extends Seeder
          * artisan seed:generate --mode=model --models=User,Vehicle,StaffPosition,Employee,VehicleComfortCategory,Trip,CategoryByPosition
          *
          */
-        StaffPosition::factory()->count(20)->create();
+        StaffPosition::factory()->count(5)->create();
     }
 }

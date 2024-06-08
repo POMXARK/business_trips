@@ -25,7 +25,7 @@ class VehicleSeeder extends Seeder
             ->sequence(fn() => [
                 'employee_id' => Employee::all()->random(),
                 'vehicle_comfort_category_id' => VehicleComfortCategory::all()->random(),
-                'user_id' => User::all()->random(),
+                'user_id' => fake()->randomElement([User::all()->random(), null]),
             ])
             ->count(20)->create();
     }

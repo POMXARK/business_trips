@@ -19,6 +19,6 @@ class VehicleComfortCategorySeeder extends Seeder
          * artisan seed:generate --mode=model --models=User,Vehicle,StaffPosition,Employee,VehicleComfortCategory,Trip,CategoryByPosition
          *
          */
-        VehicleComfortCategory::factory()->count(20)->create();
+        VehicleComfortCategory::factory()->count(3)->create();
     }
 }
