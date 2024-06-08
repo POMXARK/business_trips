@@ -11,8 +11,9 @@ Route::get('/user', function (Request $request) {
 
 
 Route::prefix('v1')->group(function () {
-    Route::post('/tokens/create', [AuthController::class, 'token']);
+    Route::post('/tokens/create', [AuthController::class, 'token'])->name('login');
     Route::middleware('auth:sanctum')->group(function () {
-        Route::get('/showcase/available_vehicles/', [VehicleController::class, 'index']);
+        Route::get('/showcase/available_vehicles/', [VehicleController::class, 'index'])
+            ->name('available_vehicles');
     });
 });

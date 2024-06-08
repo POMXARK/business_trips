@@ -10,6 +10,11 @@ use DateTime;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 
+/**
+ * Контроллер автомобилей.
+ *
+ * @see VehicleControllerTest
+ */
 class VehicleController extends Controller
 {
     /**
@@ -65,9 +70,12 @@ class VehicleController extends Controller
             ->with('categoriesByPosition')
             ->get();
 
-        $categoriesByPosition = $data->flatMap(fn(Employee $employee) => $employee->categoriesByPosition);
+        $categoriesByPosition = collect();
+        $data->each(function (Employee $employee) use ($categoriesByPosition) {
+            $categoriesByPosition->push($employee->categoriesByPosition);
+        });
 
-        $availableCategoriesVehicle = $categoriesByPosition->pluck('vehicle_comfort_category_id');
+        $availableCategoriesVehicle = $categoriesByPosition->flatten()->pluck('vehicle_comfort_category_id');
 
         $query = Vehicle::query();
 
