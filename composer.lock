@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e8c3c14ff33b199b4a0838993eb8423",
+    "content-hash": "abc906c0577c3f27c6e1ebdd25b9200a",
     "packages": [
         {
             "name": "brick/math",
@@ -7768,6 +7768,67 @@
             "time": "2024-05-31T14:57:53+00:00"
         },
         {
+            "name": "thedoctor0/laravel-factory-generator",
+            "version": "1.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TheDoctor0/laravel-factory-generator.git",
+                "reference": "fed9260ab27522e3630bc379a14786b1880fa76d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TheDoctor0/laravel-factory-generator/zipball/fed9260ab27522e3630bc379a14786b1880fa76d",
+                "reference": "fed9260ab27522e3630bc379a14786b1880fa76d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^10.0|^11.0",
+                "illuminate/filesystem": "^10.0|^11.0",
+                "illuminate/support": "^10.0|^11.0",
+                "php": "^8.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TheDoctor0\\LaravelFactoryGenerator\\FactoryGeneratorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TheDoctor0\\LaravelFactoryGenerator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Automatically generate Laravel factories for your models.",
+            "keywords": [
+                "factories",
+                "factory",
+                "generator",
+                "laravel",
+                "tests"
+            ],
+            "support": {
+                "issues": "https://github.com/TheDoctor0/laravel-factory-generator/issues",
+                "source": "https://github.com/TheDoctor0/laravel-factory-generator/tree/1.4.3"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/thedoctor0",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/thedoctor0",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-05-14T06:51:07+00:00"
+        },
+        {
             "name": "theseer/tokenizer",
             "version": "1.2.3",
             "source": {
@@ -7816,6 +7877,65 @@
                 }
             ],
             "time": "2024-03-03T12:36:25+00:00"
+        },
+        {
+            "name": "tyghaykal/laravel-seed-generator",
+            "version": "v2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tyghaykal/laravel-seeder-generator.git",
+                "reference": "bcd4037fcf5876906b6d3eb3721b8f6dc92bca33"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tyghaykal/laravel-seeder-generator/zipball/bcd4037fcf5876906b6d3eb3721b8f6dc92bca33",
+                "reference": "bcd4037fcf5876906b6d3eb3721b8f6dc92bca33",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "5.8.*|6.*|7.*|8.*|9.*|10.*|11.*",
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.0|^4.0|^5.0|^6.0|^7.0|^8.0|^9.0",
+                "phpunit/phpunit": "^11.0|^10.0|^9.0|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TYGHaykal\\LaravelSeedGenerator\\SeedGeneratorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TYGHaykal\\LaravelSeedGenerator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andre Haykal Rachman",
+                    "email": "andrecsd9@gmail.com"
+                }
+            ],
+            "description": "Laravel Seed Generator",
+            "keywords": [
+                "artisan",
+                "generator",
+                "laravel",
+                "seed",
+                "seeders"
+            ],
+            "support": {
+                "issues": "https://github.com/tyghaykal/laravel-seeder-generator/issues",
+                "source": "https://github.com/tyghaykal/laravel-seeder-generator/tree/v2.0.3"
+            },
+            "time": "2024-05-03T10:45:46+00:00"
         }
     ],
     "aliases": [],
