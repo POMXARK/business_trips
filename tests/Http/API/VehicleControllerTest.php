@@ -98,7 +98,7 @@ final class VehicleControllerTest extends TestCase
 
         $params = [
             'date_start' => $dateStart,
-            'category' => $categoryByPosition->vehicle_comfort_category_id,
+            'category' => $vehicle->vehicle_comfort_category_id,
             'model' => $vehicle->model,
         ];
         $response = $this->get(route('available_vehicles', $params), headers: ['Accept' => 'application/json']);

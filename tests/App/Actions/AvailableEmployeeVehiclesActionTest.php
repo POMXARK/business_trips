@@ -1,30 +1,26 @@
 <?php
 
-namespace Tests\Services;
+namespace Tests\App\Actions;
 
+use App\Actions\AvailableEmployeeVehiclesAction;
+use App\DTOs\FiltersVehiclesDTO;
 use App\Models\CategoryByPosition;
 use App\Models\Employee;
 use App\Models\StaffPosition;
-use App\Models\Stmt;
 use App\Models\Trip;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\VehicleComfortCategory;
-use App\Notifications\StmtNotification;
-use App\Services\StmtService;
-use App\Services\VehicleService;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Laravel\Sanctum\Sanctum;
-use PHPUnit\Framework\Attributes\Group;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
- * Тесты сервиса автомобилей.
- *
- * @see StmtService
+ * @see AvailableEmployeeVehiclesAction
  */
-#[Group('VehicleService')]
-final class VehicleServiceTest extends TestCase
+#[Group('AvailableEmployeeVehiclesAction')]
+final class AvailableEmployeeVehiclesActionTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -33,7 +29,7 @@ final class VehicleServiceTest extends TestCase
      */
     public function testSearchFilterSuccess(): void
     {
-        $vehicleService = app(VehicleService::class);
+        $action = app(AvailableEmployeeVehiclesAction::class);
         $userId = rand(0, 99999);
         $employeeId = rand(0, 99999);
         $staffPositionId = rand(0, 99999);
@@ -88,12 +84,12 @@ final class VehicleServiceTest extends TestCase
             'deleted_at' => null,
         ]);
 
-        $params = [
-            'date_start' => $dateStart,
-            'category' => $categoryByPosition->vehicle_comfort_category_id,
-            'model' => $vehicle->model,
-        ];
-        $models = $vehicleService->search($params['category'], $params['model'], $params['date_start'])['vehicles'];
+        $dto = new FiltersVehiclesDTO(
+            category: $vehicle->vehicle_comfort_category_id,
+            model: $vehicle->model,
+            inputDate: $dateStart,
+        );
+        $models = $action->execute($dto)['vehicles'];
 
         $this->assertNotEmpty($models);
         $this->assertCount(2, $models);

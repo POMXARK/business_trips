@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Actions\AvailableEmployeeVehiclesAction;
+use App\DTOs\FiltersVehiclesDTO;
 use App\Http\Controllers\Controller;
-use App\Services\VehicleService;
+use App\Services\Business\VehicleService;
 use Illuminate\Http\Request;
 
 /**
@@ -13,7 +15,7 @@ use Illuminate\Http\Request;
  */
 class VehicleController extends Controller
 {
-    public function __construct(private readonly VehicleService $vehicleService)
+    public function __construct(private readonly AvailableEmployeeVehiclesAction $availableEmployeeVehiclesAction)
     {
     }
 
@@ -65,11 +67,12 @@ class VehicleController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json(['data' => $this->vehicleService
-            ->search(
-                category: $request->input('category'),
-                model: $request->input('model'),
-                dateStart: $request->input('date_start'),
-            )]);
+        $dto = new FiltersVehiclesDTO(
+            category: $request->input('category'),
+            model: $request->input('model'),
+            inputDate: $request->input('date_start'),
+        );
+
+        return response()->json(['data' => $this->availableEmployeeVehiclesAction->execute($dto)]);
     }
 }
