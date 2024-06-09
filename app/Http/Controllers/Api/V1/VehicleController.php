@@ -3,11 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Employee;
-use App\Models\Trip;
-use App\Models\Vehicle;
-use DateTime;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Services\VehicleService;
 use Illuminate\Http\Request;
 
 /**
@@ -17,6 +13,10 @@ use Illuminate\Http\Request;
  */
 class VehicleController extends Controller
 {
+    public function __construct(private readonly VehicleService $vehicleService)
+    {
+    }
+
     /**
      * @OA\Get(
      *     path="/v1/showcase/available_vehicles/",
@@ -65,53 +65,11 @@ class VehicleController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Employee::query()
-            ->where('user_id', auth()->id())
-            ->with('categoriesByPosition')
-            ->get();
-
-        $categoriesByPosition = collect();
-        $data->each(function (Employee $employee) use ($categoriesByPosition) {
-            $categoriesByPosition->push($employee->categoriesByPosition);
-        });
-
-        $availableCategoriesVehicle = $categoriesByPosition->flatten()->pluck('vehicle_comfort_category_id');
-
-        $query = Vehicle::query();
-
-        if ($category = $request->input('category')) {
-            $query = $query->where('vehicle_comfort_category_id', $category);
-        }
-
-        if ($model = $request->input('model')) {
-            $query = $query->where('model', $model);
-        }
-
-        $inputDate = $request->input('date_start');
-        $dateStart = DateTime::createFromFormat('Y-m-d H:i', $inputDate);
-
-        $out = $query
-            ->whereIn('vehicle_comfort_category_id', $availableCategoriesVehicle)
-            ->where('user_id', null)
-            ->with('trips', fn(HasMany $query) => $query
-                ->whereDate('date_start', '>=', $dateStart))
-            ->get();
-
-        $availableVehicles = [];
-
-        $out->each(function (Vehicle $item) use ($inputDate, &$availableVehicles) {
-            $item->trips->each(function (Trip $trip) use ($inputDate, $item, &$availableVehicles) {
-                $date = date('Y-m-d H:i', strtotime($trip->date_start));
-                if ($date !== $inputDate) {
-                    $availableVehicles[] = $item;
-                }
-            });
-
-            if (count($item->trips) == 0) {
-                $availableVehicles[] = $item;
-            }
-        });
-
-        return response()->json(['data' => ['vehicles' => $availableVehicles]]);
+        return response()->json(['data' => $this->vehicleService
+            ->search(
+                category: $request->input('category'),
+                model: $request->input('model'),
+                dateStart: $request->input('date_start'),
+            )]);
     }
 }

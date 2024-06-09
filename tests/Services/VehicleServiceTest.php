@@ -1,47 +1,39 @@
 <?php
 
-namespace Tests\Http\API;
+namespace Tests\Services;
 
 use App\Models\CategoryByPosition;
 use App\Models\Employee;
 use App\Models\StaffPosition;
+use App\Models\Stmt;
 use App\Models\Trip;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\VehicleComfortCategory;
-use Illuminate\Auth\AuthenticationException;
+use App\Notifications\StmtNotification;
+use App\Services\StmtService;
+use App\Services\VehicleService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Laravel\Sanctum\Sanctum;
 use PHPUnit\Framework\Attributes\Group;
 use Tests\TestCase;
 
 /**
- * Тесты контроллера для работы с доступными автомобилями.
+ * Тесты сервиса автомобилей.
  *
- * @see VehicleController
+ * @see StmtService
  */
-#[Group('VehicleController')]
-final class VehicleControllerTest extends TestCase
+#[Group('VehicleService')]
+final class VehicleServiceTest extends TestCase
 {
     use DatabaseTransactions;
 
     /**
-     * Ошибка, если запрос выполняется неавторизованным пользователем.
+     * Успешная выборка автомобилей с фильтрацией.
      */
-    public function testAuthError(): void
+    public function testSearchFilterSuccess(): void
     {
-        $this->withoutExceptionHandling();
-
-        $this->expectException(AuthenticationException::class);
-
-        $this->get(route('available_vehicles'));
-    }
-
-    /**
-     * Успешное получения списка автомобилей с предварительной фильтрацией.
-     */
-    public function testIndexFilterSuccess(): void
-    {
+        $vehicleService = app(VehicleService::class);
         $userId = rand(0, 99999);
         $employeeId = rand(0, 99999);
         $staffPositionId = rand(0, 99999);
@@ -101,14 +93,12 @@ final class VehicleControllerTest extends TestCase
             'category' => $categoryByPosition->vehicle_comfort_category_id,
             'model' => $vehicle->model,
         ];
-        $response = $this->get(route('available_vehicles', $params), headers: ['Accept' => 'application/json']);
-        $models = $response->getOriginalContent()['data']['vehicles'];
+        $models = $vehicleService->search($params['category'], $params['model'], $params['date_start'])['vehicles'];
 
         $this->assertNotEmpty($models);
         $this->assertCount(2, $models);
         foreach ($models as $model) {
             $this->assertSame(Vehicle::class, get_class($model));
         }
-        $response->assertOk();
     }
 }
