@@ -2,6 +2,7 @@
 
 namespace Tests\Http\API;
 
+use App\Http\Controllers\Api\V1\Showcase\AvailableVehicleController;
 use App\Models\CategoryByPosition;
 use App\Models\Employee;
 use App\Models\StaffPosition;
@@ -18,10 +19,10 @@ use Tests\TestCase;
 /**
  * Тесты контроллера для работы с доступными автомобилями.
  *
- * @see VehicleController
+ * @see AvailableVehicleController
  */
-#[Group('VehicleController')]
-final class VehicleControllerTest extends TestCase
+#[Group('AvailableVehicleController')]
+final class AvailableVehicleControllerTest extends TestCase
 {
     use DatabaseTransactions;
 

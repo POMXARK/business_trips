@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Collection;
 
 /**
- * @property Collection $trips
+ * @property int $id
+ * @property string $number Регистрационный номер.
+ * @property string $model Модель.
+ * @property int|null $employee_id Водитель.
+ * @property int|null $vehicle_comfort_category_id Категория комфорта автомобиля.
+ * @property int|null $user_id Забронировано за сотрудником.
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CategoryByPosition> $categoryByPositions
  */
 class Vehicle extends Model
 {

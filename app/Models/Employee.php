@@ -9,7 +9,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @property mixed $categoriesByPosition Категории комфорта автомобиля доступные сотрудникам с определенной должностью
+ * @property mixed $categoriesByPosition Категории комфорта автомобиля доступные сотрудникам с определенной должностью.
+ * @property int $id
+ * @property int $user_id Сотрудник.
+ * @property int|null $staff_position_id Должность сотрудника.
  */
 class Employee extends Model
 {

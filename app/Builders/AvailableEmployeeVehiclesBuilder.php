@@ -67,14 +67,6 @@ class AvailableEmployeeVehiclesBuilder
     }
 
     /**
-     * Форматировать структуру.
-     */
-    private function formatCategoriesByPosition(): void
-    {
-        $this->availableCategoriesVehicle = $this->categoriesByPosition->flatten()->pluck('vehicle_comfort_category_id');
-    }
-
-    /**
      * Фильтровать автомобили.
      */
     private function filters(): static
@@ -122,6 +114,15 @@ class AvailableEmployeeVehiclesBuilder
             ->get();
 
         return $this;
+    }
+
+    /**
+     * Форматировать структуру.
+     */
+    private function formatCategoriesByPosition(): void
+    {
+        $this->availableCategoriesVehicle = $this->categoriesByPosition->flatten()
+            ->pluck('vehicle_comfort_category_id');
     }
 
     /**
