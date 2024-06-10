@@ -47,7 +47,7 @@ COPY deploy/all_in_one/start.sh /usr/local/bin/start
 RUN chown -R www-data:www-data /var/www
 
 # Activate Apache mod_rewrite
-RUN a2enmod rewrite
+RUN a2enmod rewrite headers
 
 # Set start script permission
 RUN chmod u+x /usr/local/bin/start

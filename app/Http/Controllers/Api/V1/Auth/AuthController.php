@@ -47,7 +47,11 @@ class AuthController
             new OAT\Response(
                 response: Response::HTTP_OK,
                 description: 'OK',
-                content: new OAT\JsonContent(),
+                headers: [
+                    new OAT\Header('Content-Type', 'application/json'),
+                    new OAT\Header('Access-Control-Allow-Origin', '*'),
+                ],
+                content: new OAT\JsonContent()
             ),
         ]
     )]
