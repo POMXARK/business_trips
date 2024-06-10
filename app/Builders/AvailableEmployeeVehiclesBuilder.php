@@ -21,7 +21,7 @@ class AvailableEmployeeVehiclesBuilder
         public ?Builder           $vehicleBuilder = null,
         public ?Collection        $vehicles = new Collection(),
         public ?Collection        $availableCategoriesVehicle = new Collection(),
-        public ?array             $availableVehicles = [],
+        public ?Collection        $availableVehicles = new Collection(),
 
     )
     {
@@ -29,7 +29,7 @@ class AvailableEmployeeVehiclesBuilder
         $this->vehicleBuilder ??= Vehicle::query();
     }
 
-    public function execute(): array
+    public function execute()//: array
     {
         return $this->categoriesByPosition()
             ->filters()
@@ -41,9 +41,9 @@ class AvailableEmployeeVehiclesBuilder
     /**
      * Получить доступные автомобили.
      */
-    public function getAvailableVehicles(): array
+    public function getAvailableVehicles()//: array
     {
-        return ['vehicles' => $this->availableVehicles];
+        return ['vehicles' => $this->availableVehicles->unique()];
     }
 
     /**
@@ -83,7 +83,7 @@ class AvailableEmployeeVehiclesBuilder
     private function filterCategory(): void
     {
         if ($this->dto->category) {
-            $this->employeeBuilder = $this->employeeBuilder
+            $this->vehicleBuilder = $this->vehicleBuilder
                 ->where('vehicle_comfort_category_id', $this->dto->category);
         }
     }
@@ -94,7 +94,7 @@ class AvailableEmployeeVehiclesBuilder
     private function filterModel(): void
     {
         if ($this->dto->model) {
-            $this->employeeBuilder = $this->employeeBuilder->where('model', $this->dto->model);
+            $this->vehicleBuilder = $this->vehicleBuilder->where('model', $this->dto->model);
         }
     }
 
@@ -130,16 +130,16 @@ class AvailableEmployeeVehiclesBuilder
      */
     public function availableVehicles(): static
     {
-        $this->availableVehicles = [];
+        $this->availableVehicles = collect();
         $this->vehicles->each(function (Vehicle $item) {
             $item->trips->each(function (Trip $trip) use ($item) {
                 $date = date('Y-m-d H:i', strtotime($trip->date_start));
                 if ($date !== $this->dto->inputDate) {
-                    $this->availableVehicles[] = $item;
+                    $this->availableVehicles->push($item);
                 }
             });
             if (count($item->trips) == 0) {
-                $this->availableVehicles[] = $item;
+                $this->availableVehicles->push($item);
             }
         });
 

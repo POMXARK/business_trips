@@ -77,8 +77,7 @@
                         "description": "Планируемая дата начала аренды",
                         "required": true,
                         "schema": {
-                            "type": "date",
-                            "format": "Y-m-d",
+                            "type": "string",
                             "example": "2022-04-03 09:47"
                         }
                     },

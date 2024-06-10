@@ -15,7 +15,7 @@ readonly class AvailableEmployeeVehiclesAction
     /**
      * Запуск действия.
      */
-    public function execute(FiltersVehiclesDTO $dto): array
+    public function execute(FiltersVehiclesDTO $dto)//: array
     {
         $builder = new AvailableEmployeeVehiclesBuilder(dto: $dto, userId: auth()->id());
 

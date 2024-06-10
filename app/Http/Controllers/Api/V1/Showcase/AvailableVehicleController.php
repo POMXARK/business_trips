@@ -35,8 +35,7 @@ class AvailableVehicleController extends Controller
                 in: 'query',
                 required: true,
                 schema: new OAT\Schema(
-                    type: 'date',
-                    format: 'Y-m-d',
+                    type: 'string',
                     example: '2022-04-03 09:47'
                 )
             ),
