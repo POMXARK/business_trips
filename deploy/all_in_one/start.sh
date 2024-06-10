@@ -16,6 +16,11 @@ php artisan db:seed
 php artisan db:seed
 php artisan l5-swagger:generate
 
+cd storage/
+mkdir -p framework/{sessions,views,cache}
+chmod -R 775 framework
+chown -R www-data:www-data framework
+
 set -e
 
 cron
