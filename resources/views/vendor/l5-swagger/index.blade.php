@@ -34,6 +34,19 @@
 <script src="{{ l5_swagger_asset($documentation, 'swagger-ui-standalone-preset.js') }}"></script>
 <script>
     window.onload = function() {
+        {{--const apiUrl = "{{env('SWAGGER_URL')}}";--}}
+
+        {{--const headers = new Headers({--}}
+        {{--    'Access-Control-Allow-Origin': '*',--}}
+        {{--    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',--}}
+        {{--    'Access-Control-Allow-Headers': 'Content-Type'--}}
+        {{--});--}}
+
+        {{--fetch(apiUrl, { headers })--}}
+        {{--    .then(response => response.json())--}}
+        {{--    .then(data => console.log(data))--}}
+        {{--    .catch(error => console.error(error));--}}
+
         // Build a system
         const ui = SwaggerUIBundle({
             dom_id: '#swagger-ui',

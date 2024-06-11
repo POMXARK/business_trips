@@ -1,11 +1,11 @@
 FROM php:8.2-apache
 
-ENV NODE_ENV development
+COPY . /var/www/html/public
 
-ENV PGHOST localhost
-ENV POSTGRES_DB pgsql
-ENV POSTGRES_USER postgres
-ENV POSTGRES_PASSWORD 12345678
+ENV PGHOST=localhost
+ENV POSTGRES_DB=postgres
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=12345678
 
 ENV DB_CONNECTION=pgsql
 ENV DB_HOST=localhost
@@ -13,8 +13,6 @@ ENV DB_PORT=5432
 ENV DB_DATABASE=example_app
 ENV DB_USERNAME=postgres
 ENV DB_PASSWORD=12345678
-
-COPY . /var/www/html/public
 
 ENV APACHE_DOCUMENT_ROOT ${APACHE_DOCUMENT_ROOT:-/var/www/html/public}
 

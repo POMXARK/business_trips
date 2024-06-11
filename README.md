@@ -12,4 +12,4 @@
 - sudo rm -r docker
 - sudo chmod -R 777 ./
 - docker build -t example-app -f deploy/all_in_one/Dockerfile .
-- docker run -d -p 8000:80 --name example-app example-app
+- docker run -d --env .env.docker-dev -p 8000:80 --name example-app example-app

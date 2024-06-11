@@ -16,4 +16,5 @@ Route::prefix('v1')->group(function () {
         Route::get('/showcase/available_vehicles/', [AvailableVehicleController::class, 'index'])
             ->name('available_vehicles');
     });
-});
+})->middleware(\App\Http\Middleware\Cors::class);
+
